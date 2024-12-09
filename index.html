@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Carousel</title>
+  <style>
+    /* Reset some default styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    /* Container for the carousel */
+    .carousel-container {
+      position: relative;
+      max-width: 100%;
+      margin: auto;
+      overflow: hidden; /* Hide the images that are out of view */
+      width: 80%; /* Adjust width as needed */
+    }
+
+    /* Carousel image slider (displayed horizontally) */
+    .carousel {
+      display: flex;
+      transition: transform 0.5s ease-in-out; /* Smooth sliding effect */
+    }
+
+    .carousel-slide {
+      width: 100%;  /* Each image takes full width of the container */
+      display: block;
+      height: 400px; /* Set a fixed height for your images */
+      object-fit: cover; /* Make sure images cover the area */
+    }
+
+    /* Style for navigation buttons */
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 24px;
+      z-index: 10;
+    }
+
+    button:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Carousel Container -->
+  <div class="carousel-container">
+    <!-- Carousel images -->
+    <div class="carousel">
+      <img src="image1.jpg" alt="Image 1" class="carousel-slide">
+      <img src="image2.jpg" alt="Image 2" class="carousel-slide">
+      <img src="image3.jpg" alt="Image 3" class="carousel-slide">
+      <img src="image4.jpg" alt="Image 4" class="carousel-slide">
+    </div>
+
+    <!-- Navigation buttons -->
+    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+  </div>
+
+  <script>
+    // Initialize the starting slide index
+    let slideIndex = 0;
+
+    // Function to move to the next or previous slide
+    function moveSlide(step) {
+      const slides = document.querySelectorAll('.carousel-slide');
+      const totalSlides = slides.length;
+
+      // Update the slideIndex
+      slideIndex += step;
+
+      // If the index goes out of bounds, loop around
+      if (slideIndex < 0) {
+        slideIndex = totalSlides - 1;  // Go to the last slide
+      } else if (slideIndex >= totalSlides) {
+        slideIndex = 0;  // Go to the first slide
+      }
+
+      // Move the carousel to the correct slide using CSS transform
+      const carousel = document.querySelector('.carousel');
+      carousel.style.transform = `translateX(-${slideIndex * 100}%)`;
+    }
+  </script>
+
+</body>
+</html>
